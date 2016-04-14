@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/chunyenHuang/todo#readme",
   "dependencies": {
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "request": "^2.71.0"
   }
 }
