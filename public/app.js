@@ -26,7 +26,8 @@ function todo($http, $scope) {
   function getList() {
     var list = $http.get('/todo/John');
     list.then(function (res) {
-      vm.list = res.data.items;
+      vm.undone = res.data.items;
+      vm.done = res.data.finished;
     })
   }
 
