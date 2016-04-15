@@ -14,6 +14,7 @@
         <h3>
           List to do
           <span ng-show='todo.list.length'>({{todo.list.length}})</span>
+          <span ng-show='!todo.list.length'>nothing...</span>
         </h3>
         <ul class='list-unstyled'>
           <li ng-repeat="item in todo.list">
