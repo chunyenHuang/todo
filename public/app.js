@@ -20,4 +20,8 @@ function todo($http) {
   todo.then(function (res) {
     vm.list = res.data;
   })
+  vm.finished = function (item) {
+    var position = vm.list.indexOf(item);
+    vm.list.splice(position, 1);
+  }
 }
