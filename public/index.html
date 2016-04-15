@@ -12,7 +12,7 @@
       </div>
       <div ng-controller="todoController as todo">
         <form class="form-inline" ng-submit='todo.create()'>
-          <input ng-model='newItem' class='form-control' type="text" name="name" placeholder="your next thing to do is...">
+          <input ng-model='newItem' class='form-control' type="text" placeholder="your next thing to do is..." required>
           <button class='btn btn-primary' type="submit">submit</button>
         </form>
         <h3>
@@ -24,8 +24,8 @@
           <li ng-repeat="item in todo.list track by $index">
             <h4>
               <label>
-                <input ng-click="finished = !finished; todo.finished(item)" type='checkbox'>
-                <span ng-class="{'text-muted': finished}">
+                <input ng-click="todo.finished(item)" type='checkbox'>
+                <span>
                   {{item}}
                 </span>
               </label>
