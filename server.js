@@ -49,7 +49,7 @@ app.post('/todo', function (req, res) {
         var itemArray = result[0].items;
         itemArray.push(req.body.item);
         todos.update({name: req.body.name}, {$set: {items: itemArray}}, function (err, result) {
-          db.close()
+          db.close();
         })
         res.json(result[0]);
       })
@@ -59,22 +59,37 @@ app.post('/todo', function (req, res) {
   })
 })
 
-app.put('/todo', function (req, res) {
-  console.log(req.url);
+app.put('/todo-finished', function (req, res) {
   dbClient.connect(url, function (err, db) {
     if (!err) {
       var todos = db.collection('todos');
       todos.find({name: req.body.name}).toArray(function (err, result) {
+        var finishedArray = result[0].finished;
+        finishedArray.push(req.body.item);
         var itemArray = result[0].items;
         var position = itemArray.indexOf(req.body.item);
         itemArray.splice(position, 1);
-        todos.update({name: req.body.name}, {$set: {items: itemArray}}, function (err, result) {
+        todos.update({name: req.body.name}, {$set: {items: itemArray, finished: finishedArray}}, function (err, result) {
           db.close();
         })
-        res.json(result[0]);
+        res.sendStatus(200);
       })
     } else {
-      res.sendStatus(404);
+      res.sendStatus(404)
+    }
+  })
+})
+
+app.delete('/todo-finished/:name', function (req, res) {
+  dbClient.connect(url, function (err, db) {
+    if (!err) {
+      var todos = db.collection('todos');
+      todos.update({name: req.params.name}, {$set: {finished: []}}, function (err, result) {
+        db.close();
+      })
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(404)
     }
   })
 })

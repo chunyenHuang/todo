@@ -26,20 +26,25 @@ function todo($http, $scope) {
   function getList() {
     var list = $http.get('/todo/John');
     list.then(function (res) {
-      vm.list = res.data.items;
+      vm.undone = res.data.items;
+      vm.done = res.data.finished;
     })
   }
 
   vm.create = function () {
-    console.log($scope.newItem);
     var newTodo = $http.post('/todo', {name: 'John', item: $scope.newItem});
     newTodo.then(function (res) {
       getList();
     })
   }
-  vm.finished = function (item) {
-    console.log(item);
-    var checked = $http.put('/todo', {name: 'John', item: item});
+  vm.addToFinished = function (item) {
+    var finished = $http.put('/todo-finished', {name: 'John', item: item});
+    finished.then(function (res) {
+      getList();
+    })
+  }
+  vm.finished = function () {
+    var checked = $http.delete('/todo-finished/John');
     checked.then(function (res) {
       getList();
     })

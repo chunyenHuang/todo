@@ -17,15 +17,26 @@
         </form>
         <h3>
           List to do
-          <span ng-show='todo.list.length'>({{todo.list.length}})</span>
-          <span ng-show='!todo.list.length'>nothing...</span>
+          <span ng-show='todo.undone.length'>({{todo.undone.length}})</span>
+          <span ng-show='!todo.undone.length'>nothing...</span>
+          <button class='btn btn-xs btn-default' type="button" ng-click="todo.finished()">clear all finished</button>
         </h3>
         <ul class='list-unstyled'>
-          <li ng-repeat="item in todo.list track by $index">
+          <li ng-repeat="item in todo.undone track by $index">
             <h4>
               <label>
-                <input ng-click="todo.finished(item)" type='checkbox'>
-                <span>
+                <input ng-click="finished = !finished; todo.addToFinished(item)" type='checkbox'>
+                <span ng-class="{'text-muted': finished}">
+                  {{item}}
+                </span>
+              </label>
+            </h4>
+          </li>
+          <li ng-repeat="item in todo.done track by $index">
+            <h4>
+              <label>
+                <input type='checkbox' checked disabled="disabled">
+                <span class="text-muted">
                   {{item}}
                 </span>
               </label>
