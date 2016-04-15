@@ -17,13 +17,16 @@ app.$inject = ['$http', '$scope'];
 
 function todo($http, $scope) {
   var vm = this;
-  getList();
+  activate();
+
+  function activate(){
+    getList();
+  }
 
   function getList() {
     var list = $http.get('/todo/John');
     list.then(function (res) {
-      vm.undone = res.data.items;
-      vm.done = res.data.finished;
+      vm.list = res.data.items;
     })
   }
 
