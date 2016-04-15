@@ -6,7 +6,10 @@
   </head>
   <body ng-app='todo'>
     <div ng-controller="homeController as home">
-      {{home.message}}
+      {{home.message}} ~ {{home.user.name}}
+    </div>
+    <div ng-controller="todoeController as todo">
+      {{todo.list}}
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
     <script src='app.js'></script>
