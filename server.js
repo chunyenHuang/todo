@@ -12,12 +12,27 @@ app.get('/user', function (req, res) {
   res.json(user);
 })
 
+var todoArray = [
+  'say hi to kitten',
+  'drink some water',
+  'code',
+  'starwar 7',
+  'ola',
+];
+
 app.get('/todo/:user', function (req, res) {
   if (req.params.user === 'John') {
-    res.send(['say hi', 'drink some water']);
+    res.send(todoArray);
   } else {
     res.sendStatus(404);
   }
+})
+
+app.get('/todo-check/:item', function (req, res) {
+  console.log(req.url);
+  var position = todoArray.indexOf(req.params.item);
+  todoArray.splice(position, 1);
+  res.send(todoArray);
 })
 
 app.listen(port, function () {

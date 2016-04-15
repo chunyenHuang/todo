@@ -20,4 +20,11 @@ function todo($http) {
   todo.then(function (res) {
     vm.list = res.data;
   })
+  vm.finished = function (item) {
+    console.log(item);
+    var checked = $http.get('/todo-check/'+item);
+    checked.then(function (res) {
+      vm.list = res.data;
+    })
+  }
 }

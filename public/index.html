@@ -14,12 +14,13 @@
         <h3>
           List to do
           <span ng-show='todo.list.length'>({{todo.list.length}})</span>
+          <span ng-show='!todo.list.length'>nothing...</span>
         </h3>
         <ul class='list-unstyled'>
           <li ng-repeat="item in todo.list">
             <h4>
               <label>
-                <input ng-click="finished = !finished" type='checkbox'>
+                <input ng-click="finished = !finished; todo.finished(item)" type='checkbox'>
                 <span ng-class="{'text-muted': finished}">
                   {{item}}
                 </span>
