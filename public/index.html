@@ -11,15 +11,20 @@
         <h1>{{home.message}} ~ {{home.user.name}}</h1>
       </div>
       <div ng-controller="todoeController as todo">
-        <h3>list to do</h3>
+        <h3>
+          List to do
+          <span ng-show='todo.list.length'>({{todo.list.length}})</span>
+        </h3>
         <ul class='list-unstyled'>
           <li ng-repeat="item in todo.list">
-            <h5>
-              <input ng-click="finished = !finished" type='checkbox'>
-              <span ng-class="{'text-muted': finished}">
-                {{item}}
-              </span>
-            </h5>
+            <h4>
+              <label>
+                <input ng-click="finished = !finished" type='checkbox'>
+                <span ng-class="{'text-muted': finished}">
+                  {{item}}
+                </span>
+              </label>
+            </h4>
           </li>
         </ul>
       </div>
