@@ -3,14 +3,23 @@
   <head>
     <meta charset="utf-8">
     <title>Angular JS</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   </head>
   <body ng-app='todo'>
-    <div ng-controller="homeController as home">
-      {{home.message}} ~ {{home.user.name}}
+    <div class="container">
+      <div ng-controller="homeController as home">
+        {{home.message}} ~ {{home.user.name}}
+      </div>
+      <div ng-controller="todoeController as todo">
+        <h3>list to do</h3>
+        <ul ng-repeat="item in todo.list">
+          <li>{{item}}</li>
+        </ul>
+      </div>
     </div>
-    <div ng-controller="todoeController as todo">
-      {{todo.list}}
-    </div>
+
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
     <script src='app.js'></script>
   </body>
