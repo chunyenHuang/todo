@@ -10,14 +10,18 @@
       <div ng-controller="homeController as home">
         <h1>{{home.message}} ~ {{home.user.name}}</h1>
       </div>
-      <div ng-controller="todoeController as todo">
+      <div ng-controller="todoController as todo">
+        <form class="form-inline" ng-submit='todo.create()'>
+          <input ng-model='newItem' class='form-control' type="text" name="name" placeholder="your next thing to do is...">
+          <button class='btn btn-primary' type="submit">submit</button>
+        </form>
         <h3>
           List to do
           <span ng-show='todo.list.length'>({{todo.list.length}})</span>
           <span ng-show='!todo.list.length'>nothing...</span>
         </h3>
         <ul class='list-unstyled'>
-          <li ng-repeat="item in todo.list">
+          <li ng-repeat="item in todo.list track by $index">
             <h4>
               <label>
                 <input ng-click="finished = !finished; todo.finished(item)" type='checkbox'>

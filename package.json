@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/chunyenHuang/todo#readme",
   "dependencies": {
+    "body-parser": "^1.15.0",
     "express": "^4.13.4",
+    "mongodb": "^2.1.16",
     "request": "^2.71.0"
   }
 }
