@@ -14,7 +14,14 @@ app.get('/user', function (req, res) {
 
 app.get('/todo/:user', function (req, res) {
   if (req.params.user === 'John') {
-    res.send(['say hi', 'drink some water']);
+    var todoArray = [
+      'say hi to kitten',
+      'drink some water',
+      'code',
+      'starwar 7',
+      'ola',
+    ];
+    res.send(todoArray);
   } else {
     res.sendStatus(404);
   }
