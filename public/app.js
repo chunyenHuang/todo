@@ -17,7 +17,11 @@ app.$inject = ['$http', '$scope'];
 
 function todo($http, $scope) {
   var vm = this;
-  getList();
+  activate();
+
+  function activate(){
+    getList();
+  }
 
   function getList() {
     var list = $http.get('/todo/John');
