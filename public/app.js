@@ -21,7 +21,10 @@ function todo($http) {
     vm.list = res.data;
   })
   vm.finished = function (item) {
-    var position = vm.list.indexOf(item);
-    vm.list.splice(position, 1);
+    console.log(item);
+    var checked = $http.get('/todo-check/'+item);
+    checked.then(function (res) {
+      vm.list = res.data;
+    })
   }
 }
