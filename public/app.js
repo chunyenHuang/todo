@@ -15,13 +15,13 @@ function home($http) {
 app.directive('greeting', greeting);
 function greeting() {
   return {
-    templateUrl: './pages/greeting.home.html'
+    templateUrl: './home/greeting.home.html'
   }
 }
 
 app.directive('footer', function () {
   return {
-    templateUrl: './pages/footer.html'
+    templateUrl: './footer.html'
   }
 })
 

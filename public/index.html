@@ -26,8 +26,8 @@
           <li ng-repeat="item in todo.undone track by $index">
             <h4>
               <label>
-                <input ng-click="finished = !finished; todo.addToFinished(item)" type='checkbox'>
-                <span ng-class="{'text-muted': finished}">
+                <button ng-click="todo.addToFinished(item)" type='button' class='btn btn-default btn-xs'>▢</button>
+                <span>
                   {{item}}
                 </span>
               </label>
