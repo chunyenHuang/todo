@@ -5,4 +5,4 @@ install:
 before_script:
   - npm install -g gulp
   - npm install -g mocha
-scripts: gulp test
+script: gulp test
