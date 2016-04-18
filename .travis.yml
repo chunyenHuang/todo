@@ -1,8 +1,8 @@
-languages: node_js
+language: node_js
 services: mongodb
 install:
   - npm install
-before_scripts:
+before_script:
   - npm install -g gulp
   - npm install -g mocha
-scripts: gulp go
+script: gulp test

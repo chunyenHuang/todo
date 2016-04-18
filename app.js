@@ -2,7 +2,7 @@ var express = require('express');
 var mongodb = require('mongodb');
 var dbClient = mongodb.MongoClient;
 var ObjectId = mongodb.ObjectId;
-var database = 'todo'; // users, todos
+var database = 'todo';
 var url = 'mongodb://localhost/' + database;
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
@@ -17,8 +17,8 @@ app.get('/user/:name', function (req, res) {
     if (!err) {
       var users = db.collection('users');
       users.find({name: req.params.name}).toArray(function (err, result) {
-        db.close();
         res.json(result[0]);
+        db.close();
       })
     } else {
       res.sendStatus(404);
@@ -31,8 +31,8 @@ app.get('/todo/:name', function (req, res) {
     if (!err) {
       var todos = db.collection('todos');
       todos.find({name: req.params.name}).toArray(function (err, result) {
-        db.close();
         res.json(result[0]);
+        db.close();
       })
     } else {
       res.sendStatus(404);
