@@ -93,9 +93,11 @@ app.delete('/todo-finished/:name', function (req, res) {
   })
 })
 
-app.listen(port, function () {
-  console.log('running on port: ' + port);
-})
+if (!require.main.loaded) {
+  app.listen(port, function () {
+    console.log('running on port: ' + port);
+  })
+}
 
 app.on('close', function() {
   console.log('rs');
