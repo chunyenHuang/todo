@@ -1,4 +1,4 @@
-var app = angular.module('todo', []); // add [] for new module
+var app = angular.module('todo', []);
 app.controller('homeController', home);
 app.$inject = ['$http'];
 
