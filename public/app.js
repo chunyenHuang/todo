@@ -11,20 +11,6 @@ function home($http) {
     vm.user = res.data;
   })
 }
-
-app.directive('greeting', greeting);
-function greeting() {
-  return {
-    templateUrl: './home/greeting.home.html'
-  }
-}
-
-app.directive('footer', function () {
-  return {
-    templateUrl: './footer.html'
-  }
-})
-
 app.controller('todoController', todo);
 app.$inject = ['$http', '$scope'];
 
