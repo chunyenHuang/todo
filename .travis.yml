@@ -1,4 +1,4 @@
-languages: node_js
+language: node_js
 services: mongodb
 install:
   - npm install
@@ -6,3 +6,4 @@ before_scripts:
   - npm install -g gulp
   - npm install -g mocha
 scripts: gulp go
+sudo: required
