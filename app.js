@@ -13,7 +13,6 @@ app.use(jsonParser);
 app.use(express.static('./public/'));
 
 app.get('/user/:name', function (req, res) {
-  console.log(req.url);
   dbClient.connect(url, function (err, db) {
     if (!err) {
       var users = db.collection('users');
