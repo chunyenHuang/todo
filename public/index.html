@@ -11,49 +11,23 @@
         <h1>{{home.message}}</h1>
         <greeting-home></greeting-home>
       </div>
-      <add>
-
-      </add>
       <div ng-controller="todoController as todo">
-        <form class="form-inline" ng-submit='todo.create()'>
-          <input ng-model='newItem' class='form-control' type="text" placeholder="your next thing to do is..." required>
-          <button class='btn btn-primary' type="submit">submit</button>
-        </form>
-        <h3>
-          List to do
-          <span ng-show='todo.undone.length'>({{todo.undone.length}})</span>
-          <span ng-show='!todo.undone.length'>nothing...</span>
-          <button class='btn btn-xs btn-default' type="button" ng-click="todo.finished()">clear all finished</button>
-        </h3>
-        <ul class='list-unstyled'>
-          <li ng-repeat="item in todo.undone track by $index">
-            <h4>
-              <label>
-                <spa ng-click="todo.addToFinished(item)" type='button' class='btn btn-default btn-xs'>▢</button>
-                <span>
-                  {{item}}
-                </span>
-              </label>
-            </h4>
-          </li>
-          <li ng-repeat="item in todo.done track by $index">
-            <h4>
-              <label>
-                <input type='checkbox' checked disabled="disabled">
-                <span class="text-muted">
-                  {{item}}
-                </span>
-              </label>
-            </h4>
-          </li>
-        </ul>
+        <add></add>
+        <h3>Todo List</h3>
+        <count></count>
+        <list></list>
       </div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
     <script src='app.js'></script>
+    <script src='home/home.controller.js'></script>
     <script src='home/greetingHome.js'></script>
+    <script src='todo/todo.controller.js'></script>
     <script src='todo/add.directive.js'></script>
+    <script src='todo/list.directive.js'></script>
+    <script src='todo/count.directive.js'></script>
+
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   </body>
