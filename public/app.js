@@ -11,7 +11,6 @@ function home($http) {
     vm.user = res.data;
   })
 }
-
 app.controller('todoController', todo);
 app.$inject = ['$http', '$scope'];
 

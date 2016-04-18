@@ -8,8 +8,12 @@
   <body ng-app='todo'>
     <div class="container">
       <div ng-controller="homeController as home">
-        <h1>{{home.message}} ~ {{home.user.name}}</h1>
+        <h1>{{home.message}}</h1>
+        <greeting-home></greeting-home>
       </div>
+      <add>
+
+      </add>
       <div ng-controller="todoController as todo">
         <form class="form-inline" ng-submit='todo.create()'>
           <input ng-model='newItem' class='form-control' type="text" placeholder="your next thing to do is..." required>
@@ -25,8 +29,8 @@
           <li ng-repeat="item in todo.undone track by $index">
             <h4>
               <label>
-                <input ng-click="finished = !finished; todo.addToFinished(item)" type='checkbox'>
-                <span ng-class="{'text-muted': finished}">
+                <spa ng-click="todo.addToFinished(item)" type='button' class='btn btn-default btn-xs'>▢</button>
+                <span>
                   {{item}}
                 </span>
               </label>
@@ -48,6 +52,8 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
     <script src='app.js'></script>
+    <script src='home/greetingHome.js'></script>
+    <script src='todo/add.directive.js'></script>
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   </body>
