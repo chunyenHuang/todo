@@ -7,10 +7,10 @@ gulp.task('test-routes', function () {
              .pipe(mocha());
 })
 
-gulp.watch('app.js', ['go']);
+// gulp.watch('app.js', ['go']);
 
 gulp.task('go', function () {
-  nodemon({script: 'app.js'}).on('start', ['test-routes']);
+  nodemon({script: 'app.js'}).on('start', ['test', 'test-routes']);
 })
 
 gulp.task('test', function() {

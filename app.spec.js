@@ -11,8 +11,10 @@ describe('Todos can', function (){
   it('be returned within', function (done){
     request('http://localhost:' + port + '/todo/John', function(err, res, body) {
       assert.equal(res.statusCode, 200);
-      server.close();
       done();
     })
+  })
+  after(function(){
+    server.close();
   })
 })

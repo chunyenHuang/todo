@@ -17,8 +17,8 @@ app.get('/user/:name', function (req, res) {
     if (!err) {
       var users = db.collection('users');
       users.find({name: req.params.name}).toArray(function (err, result) {
-        db.close();
         res.json(result[0]);
+        db.close();
       })
     } else {
       res.sendStatus(404);
@@ -31,8 +31,8 @@ app.get('/todo/:name', function (req, res) {
     if (!err) {
       var todos = db.collection('todos');
       todos.find({name: req.params.name}).toArray(function (err, result) {
-        db.close();
         res.json(result[0]);
+        db.close();
       })
     } else {
       res.sendStatus(404);
