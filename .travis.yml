@@ -5,5 +5,5 @@ install:
 before_scripts:
   - npm install -g gulp
   - npm install -g mocha
-scripts: gulp go
+scripts: gulp test
 sudo: required

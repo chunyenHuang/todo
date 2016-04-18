@@ -9,6 +9,6 @@ gulp.task('test-routes', function () {
 
 gulp.watch('app.js', ['go']);
 
-gulp.task('go', function () {
+gulp.task('test', function () {
   nodemon({script: 'app.js'}).on('start', ['test-routes']);
 })
