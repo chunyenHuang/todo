@@ -12,6 +12,19 @@ function home($http) {
   })
 }
 
+app.directive('greeting', greeting);
+function greeting() {
+  return {
+    templateUrl: './pages/greeting.home.html'
+  }
+}
+
+app.directive('footer', function () {
+  return {
+    templateUrl: './pages/footer.html'
+  }
+})
+
 app.controller('todoController', todo);
 app.$inject = ['$http', '$scope'];
 
