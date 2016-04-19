@@ -20,13 +20,13 @@ function todo($http, $scope) {
   }
 
   vm.create = function () {
-    var newTodo = $http.post('/todo', {name: 'John', item: $scope.newItem});
+    var newTodo = $http.post('/todo', {name: 'John', item: $scope.newItem, due: $scope.newDate});
     newTodo.then(function (res) {
       getList();
     })
   }
-  vm.addToFinished = function (item) {
-    var finished = $http.put('/todo-finished', {name: 'John', item: item});
+  vm.addToFinished = function (items) {
+    var finished = $http.put('/todo-finished', {name: 'John', item: items.item, done: new Date()});
     finished.then(function (res) {
       getList();
     })

@@ -1,5 +1,6 @@
 var express = require('express');
 var mongodb = require('mongodb');
+var _ = require('underscore');
 var dbClient = mongodb.MongoClient;
 var ObjectId = mongodb.ObjectId;
 var database = 'todo';
@@ -46,7 +47,11 @@ app.post('/todo', function (req, res) {
       var todos = db.collection('todos');
       todos.find({name: req.body.name}).toArray(function (err, result) {
         var itemArray = result[0].items;
-        itemArray.push(req.body.item);
+        var newTodo = {
+          item: req.body.item,
+          due: req.body.due
+        }
+        itemArray.push(newTodo);
         todos.update({name: req.body.name}, {$set: {items: itemArray}}, function (err, result) {
           db.close();
         })
@@ -64,9 +69,14 @@ app.put('/todo-finished', function (req, res) {
       var todos = db.collection('todos');
       todos.find({name: req.body.name}).toArray(function (err, result) {
         var finishedArray = result[0].finished;
-        finishedArray.push(req.body.item);
+        var doneTodo = {
+          item: req.body.item,
+          done: req.body.done
+        }
+        finishedArray.push(doneTodo);
         var itemArray = result[0].items;
-        var position = itemArray.indexOf(req.body.item);
+        var found = _.where(itemArray, {item: req.body.item});
+        var position = itemArray.indexOf(found[0]);
         itemArray.splice(position, 1);
         todos.update({name: req.body.name}, {$set: {items: itemArray, finished: finishedArray}}, function (err, result) {
           db.close();

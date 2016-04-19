@@ -1,20 +1,22 @@
 <ul class='list-unstyled'>
-  <li ng-repeat="item in todo.undone track by $index">
+  <li ng-repeat="items in todo.undone track by $index">
     <h4>
       <label>
-        <button ng-click="todo.addToFinished(item)" type='button' class='btn btn-default btn-xs'>▢</button>
+        <button ng-click="todo.addToFinished(items)" type='button' class='btn btn-default btn-xs'>▢</button>
         <span>
-          {{item}}
+          {{items.item}}
+          (due @ {{items.due | date:'MM-dd'}})
         </span>
       </label>
     </h4>
   </li>
-  <li ng-repeat="item in todo.done track by $index">
+  <li ng-repeat="items in todo.done track by $index">
     <h4>
       <label>
         <input type='checkbox' checked disabled="disabled">
         <span class="text-muted">
-          {{item}}
+          {{items.item}}
+          (done @ {{items.done | date:'MM-dd'}})
         </span>
       </label>
     </h4>
