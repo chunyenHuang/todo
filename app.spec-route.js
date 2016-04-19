@@ -25,7 +25,7 @@ describe('Routes Test', function (){
     request({
       method: 'post',
       url:'http://localhost:1337/todo',
-      json: {name: 'John', item: 'Test'}
+      json: {name: 'John', item: {item: 'Test', due: new Date()}}
     }, function(err, res, body) {
       assert.equal(res.statusCode, 200);
       done();
@@ -35,7 +35,7 @@ describe('Routes Test', function (){
     request({
       method: 'put',
       url:'http://localhost:1337/todo-finished',
-      json: {name: 'John', item: 'Test'}
+      json: {name: 'John', item: {item: 'Test', due: new Date()}}
     }, function(err, res, body) {
       assert.equal(res.statusCode, 200);
       done();
