@@ -3,20 +3,26 @@ var assert = chai.assert;
 var request = require('request');
 
 describe('Routes Test', function (){
-  it('GET: /todo/John', function (done){
-    request('http://localhost:1337/todo/John', function(err, res, body) {
+  it('GET: /user/', function (done){
+    request('http://localhost:1337/user/', function(err, res, body) {
+      assert.equal(res.statusCode, 200);
+      done();
+    })
+  })
+  it('GET: /login/John', function (done){
+    request('http://localhost:1337/login/John', function(err, res, body) {
+      assert.equal(res.statusCode, 200);
+      done();
+    })
+  })
+  it('GET: /todo/', function (done){
+    request('http://localhost:1337/todo/', function(err, res, body) {
       assert.equal(res.statusCode, 200);
       done();
     })
   })
   it('GET: /todo/John', function (done){
     request('http://localhost:1337/todo/John', function(err, res, body) {
-      assert.equal(res.statusCode, 200);
-      done();
-    })
-  })
-  it('GET: /user/John', function (done){
-    request('http://localhost:1337/user/John', function(err, res, body) {
       assert.equal(res.statusCode, 200);
       done();
     })
@@ -41,10 +47,10 @@ describe('Routes Test', function (){
       done();
     })
   })
-  it('DELETE: /todo-finished/John', function (done){
+  it('DELETE: /todo-finished/', function (done){
     request({
       method: 'delete',
-      url:'http://localhost:1337/todo-finished/John'
+      url:'http://localhost:1337/todo-finished/'
     }, function(err, res, body) {
       assert.equal(res.statusCode, 200);
       done();

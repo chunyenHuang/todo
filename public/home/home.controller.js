@@ -1,14 +1,16 @@
 var app = angular.module('todo');
 
 app.controller('homeController', home);
-app.$inject = ['$http'];
+app.$inject = ['$http', 'userService'];
 
-function home($http) {
+function home($http, userService) {
   var vm = this;
-  vm.message = 'Angular JS is here';
+  vm.message = "Todo List";
 
-  var user = $http({method: 'GET', url:'/user/John'});
+  var user = userService.getUser();
   user.then(function (res) {
     vm.user = res.data;
   })
+
+
 }

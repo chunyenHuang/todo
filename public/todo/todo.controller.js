@@ -1,40 +1,38 @@
 var app = angular.module('todo');
 
 app.controller('todoController', todo);
-app.$inject = ['$http', '$scope'];
+app.$inject = ['$http', '$scope', userService];
 
-function todo($http, $scope) {
+function todo($http, $scope, userService) {
   var vm = this;
   activate();
 
   function activate(){
-    getList();
+    showList();
   }
-
-  function getList() {
-    var list = $http.get('/todo/John');
+  function showList() {
+    var list = userService.getList();
     list.then(function (res) {
       vm.undone = res.data.items;
       vm.done = res.data.finished;
     })
   }
-
   vm.create = function () {
-    var newTodo = $http.post('/todo', {name: 'John', item: $scope.newItem, due: $scope.newDate});
+    var newTodo = userService.create({item: $scope.newItem, due: $scope.newDate});
     newTodo.then(function (res) {
-      getList();
+      showList();
     })
   }
   vm.addToFinished = function (items) {
-    var finished = $http.put('/todo-finished', {name: 'John', item: items.item, done: new Date()});
+    var finished = userService.addToFinished({item: items.item, done: new Date()});
     finished.then(function (res) {
-      getList();
+      showList();
     })
   }
   vm.finished = function () {
-    var checked = $http.delete('/todo-finished/John');
+    var checked = userService.clearFinished();
     checked.then(function (res) {
-      getList();
+      showList();
     })
   }
 }
