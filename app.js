@@ -59,23 +59,40 @@ app.get('/login/:name', function (req, res) {
             var token = sessionToken(15)
             res.cookie('todo', token);
             sessions.push({username: result[0].name, token: token});
+          } else {
+            res.cookie('todo', logged[0].token);
           }
           res.json(result[0]);
         } else {
-          users.insert({name: req.params.name, location: 'whatever'});
-          users.find({name: req.params.name}).toArray(function (err, result) {
-            var logged = _.where(sessions, {username: req.params.name});
-            console.log(typeof(logged));
-            console.log(logged);
-            if (logged.length===0) {
-              var token = sessionToken(15)
-              res.cookie('todo', token);
-              sessions.push({username: result[0].name, token: token});
-            }
-            res.json(result[0]);
-          })
+          console.log(req.params.name);
+          users.findAndModify({
+            query: {name: req.params.name},
+            sort: {name: req.params.name},
+            update:{$inc:{location: 'no where'}},
+            upsert: true,
+            new: true,
+          }, function(err, result) {
+            console.log('add new user - test');
+            console.log(result);
+            res.json(result);
+          });
+          // users.insert({name: req.params.name, location: 'no where'});
+          // users.find({name: req.params.name}).toArray(function (err, result) {
+          //   var logged = _.where(sessions, {username: req.params.name});
+          //   console.log(typeof(logged));
+          //   console.log(logged);
+          //   if (logged.length===0) {
+          //     var token = sessionToken(15)
+          //     res.cookie('todo', token);
+          //     sessions.push({username: result[0].name, token: token});
+          //   } else {
+          //     res.cookie('todo', logged[0].token);
+          //   }
+          //   res.json(result[0]);
+          // })
         }
         db.close();
+        console.log(sessions);
       })
     } else {
       res.sendStatus(404);
@@ -122,17 +139,24 @@ app.post('/todo', function (req, res) {
   dbClient.connect(url, function (err, db) {
     if (!err) {
       var todos = db.collection('todos');
+      var newTodo = {
+        item: req.body.item,
+        due: req.body.due
+      }
       todos.find({name: req.username}).toArray(function (err, result) {
-        var itemArray = result[0].items;
-        var newTodo = {
-          item: req.body.item,
-          due: req.body.due
+        if (result.length > 0) {
+          var itemArray = result[0].items;
+          itemArray.push(newTodo);
+          todos.update({name: req.username}, {$set: {items: itemArray}}, function (err, result) {
+            res.json(result[0]);
+          })
+        } else {
+          todos.insert({name: req.username, items:[newTodo], finisehd:[]});
+          todos.find({name: req.username}).toArray(function (err, result) {
+            res.json(result[0]);
+          })
         }
-        itemArray.push(newTodo);
-        todos.update({name: req.username}, {$set: {items: itemArray}}, function (err, result) {
-          db.close();
-        })
-        res.json(result[0]);
+        db.close();
       })
     } else {
       res.sendStatus(404);
@@ -182,7 +206,7 @@ app.delete('/todo-finished', function (req, res) {
 
 app.get('/logout', function (req, res) {
   session = [];
-  console.log(session);
+  res.clearCookie('todo');
   res.sendFile(__dirname+'/public/index.html');
 })
 

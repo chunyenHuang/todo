@@ -10,14 +10,13 @@
     <div class="container">
       <div ng-controller="homeController as home">
         <h1>{{home.message}}</h1>
-        <!-- <greeting-home></greeting-home> -->
       </div>
       <a href="#/todo"><button id='show-list' class='btn btn-default'>Show My Todo List</button></a>
       <a href="#/profile"><button id='show-profile' class='btn btn-default'>Show My Profile</button></a>
       <hr>
       <div ng-view></div>
     </div>
-    
+
     <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
