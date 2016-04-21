@@ -64,32 +64,20 @@ app.get('/login/:name', function (req, res) {
           }
           res.json(result[0]);
         } else {
-          console.log(req.params.name);
-          users.findAndModify({
-            query: {name: req.params.name},
-            sort: {name: req.params.name},
-            update:{$inc:{location: 'no where'}},
-            upsert: true,
-            new: true,
-          }, function(err, result) {
-            console.log('add new user - test');
-            console.log(result);
-            res.json(result);
-          });
-          // users.insert({name: req.params.name, location: 'no where'});
-          // users.find({name: req.params.name}).toArray(function (err, result) {
-          //   var logged = _.where(sessions, {username: req.params.name});
-          //   console.log(typeof(logged));
-          //   console.log(logged);
-          //   if (logged.length===0) {
-          //     var token = sessionToken(15)
-          //     res.cookie('todo', token);
-          //     sessions.push({username: result[0].name, token: token});
-          //   } else {
-          //     res.cookie('todo', logged[0].token);
-          //   }
-          //   res.json(result[0]);
-          // })
+          users.insert({name: req.params.name, location: 'no where'});
+          users.find({name: req.params.name}).toArray(function (err, result) {
+            var logged = _.where(sessions, {username: req.params.name});
+            console.log(typeof(logged));
+            console.log(logged);
+            if (logged.length===0) {
+              var token = sessionToken(15)
+              res.cookie('todo', token);
+              sessions.push({username: result[0].name, token: token});
+            } else {
+              res.cookie('todo', logged[0].token);
+            }
+            res.json(result[0]);
+          })
         }
         db.close();
         console.log(sessions);
