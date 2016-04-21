@@ -9,8 +9,8 @@ describe('Routes Test', function (){
       done();
     })
   })
-  it('GET: /login/test', function (done){
-    request('http://localhost:1337/login/test', function(err, res, body) {
+  it('GET: /login/guest', function (done){
+    request('http://localhost:1337/login/guest', function(err, res, body) {
       assert.equal(res.statusCode, 200);
       done();
     })
@@ -21,8 +21,8 @@ describe('Routes Test', function (){
       done();
     })
   })
-  it('GET: /todo/test', function (done){
-    request('http://localhost:1337/todo/test', function(err, res, body) {
+  it('GET: /todo/guest', function (done){
+    request('http://localhost:1337/todo/guest', function(err, res, body) {
       assert.equal(res.statusCode, 200);
       done();
     })
@@ -31,7 +31,10 @@ describe('Routes Test', function (){
     request({
       method: 'post',
       url:'http://localhost:1337/todo',
-      json: {name: 'test', item: {item: 'Test', due: new Date()}}
+      json: {
+        item: 'Test',
+        due: new Date(),
+      },
     }, function(err, res, body) {
       assert.equal(res.statusCode, 200);
       done();
@@ -41,7 +44,7 @@ describe('Routes Test', function (){
     request({
       method: 'put',
       url:'http://localhost:1337/todo-finished',
-      json: {name: 'test', item: {item: 'Test', due: new Date()}}
+      json: {item: 'Test', due: new Date()},
     }, function(err, res, body) {
       assert.equal(res.statusCode, 200);
       done();

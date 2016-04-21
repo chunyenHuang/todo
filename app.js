@@ -43,6 +43,7 @@ app.get('/user', function (req, res) {
       })
     } else {
       res.sendStatus(404);
+      db.close();
     }
   })
 })
@@ -63,39 +64,40 @@ app.get('/login/:name', function (req, res) {
             res.cookie('todo', logged[0].token);
           }
           res.json(result[0]);
+          db.close();
         } else {
-          console.log(req.params.name);
-          users.findAndModify({
-            query: {name: req.params.name},
-            sort: {name: req.params.name},
-            update:{$inc:{location: 'no where'}},
-            upsert: true,
-            new: true,
-          }, function(err, result) {
-            console.log('add new user - test');
-            console.log(result);
-            res.json(result);
-          });
-          // users.insert({name: req.params.name, location: 'no where'});
-          // users.find({name: req.params.name}).toArray(function (err, result) {
-          //   var logged = _.where(sessions, {username: req.params.name});
-          //   console.log(typeof(logged));
-          //   console.log(logged);
-          //   if (logged.length===0) {
-          //     var token = sessionToken(15)
-          //     res.cookie('todo', token);
-          //     sessions.push({username: result[0].name, token: token});
-          //   } else {
-          //     res.cookie('todo', logged[0].token);
-          //   }
-          //   res.json(result[0]);
-          // })
+          // console.log(req.params.name);
+          // users.findAndModify({
+          //   query: {name: req.params.name},
+          //   sort: {name: req.params.name},
+          //   update:{$inc:{location: 'no where'}},
+          //   upsert: true,
+          //   new: true,
+          // }, function(err, result) {
+          //   console.log('add new user - test');
+          //   console.log(result);
+          //   res.json(result);
+          // });
+          users.insert({name: req.params.name, location: 'no where'});
+          users.find({name: req.params.name}).toArray(function (err, result) {
+            var logged = _.where(sessions, {username: req.params.name});
+            console.log(typeof(logged));
+            console.log(logged);
+            if (logged.length===0) {
+              var token = sessionToken(15)
+              res.cookie('todo', token);
+              sessions.push({username: result[0].name, token: token});
+            } else {
+              res.cookie('todo', logged[0].token);
+            }
+            res.json(result[0]);
+            db.close();
+          })
         }
-        db.close();
-        console.log(sessions);
       })
     } else {
       res.sendStatus(404);
+      db.close();
     }
   })
 })
@@ -111,12 +113,13 @@ app.get('/todo', function (req, res) {
           todos.insert({name: req.params.name, items: [], finished:[]}, function (err, result) {
             console.log(result);
             res.json(result);
+            db.close();
           })
         }
-        db.close();
       })
     } else {
       res.sendStatus(404);
+      db.close();
     }
   })
 })
@@ -131,6 +134,7 @@ app.get('/todo/:name', function (req, res) {
       })
     } else {
       res.sendStatus(404);
+      db.close();
     }
   })
 })
@@ -139,24 +143,27 @@ app.post('/todo', function (req, res) {
   dbClient.connect(url, function (err, db) {
     if (!err) {
       var todos = db.collection('todos');
-      var newTodo = {
-        item: req.body.item,
-        due: req.body.due
-      }
+      console.log(req.username);
+      console.log(req.body);
       todos.find({name: req.username}).toArray(function (err, result) {
+        console.log(result[0]);
         if (result.length > 0) {
           var itemArray = result[0].items;
-          itemArray.push(newTodo);
+          itemArray.push(req.body);
           todos.update({name: req.username}, {$set: {items: itemArray}}, function (err, result) {
-            res.json(result[0]);
+            todos.find({name: req.username}).toArray(function (err, result) {
+              console.log(result[0]);
+              res.json(result[0]);
+              db.close();
+            })
           })
         } else {
-          todos.insert({name: req.username, items:[newTodo], finisehd:[]});
+          todos.insert({name: req.username, items:[req.body], finisehd:[]});
           todos.find({name: req.username}).toArray(function (err, result) {
             res.json(result[0]);
+            db.close();
           })
         }
-        db.close();
       })
     } else {
       res.sendStatus(404);
@@ -180,12 +187,13 @@ app.put('/todo-finished', function (req, res) {
         var position = itemArray.indexOf(found[0]);
         itemArray.splice(position, 1);
         todos.update({name: req.username}, {$set: {items: itemArray, finished: finishedArray}}, function (err, result) {
+          res.sendStatus(200);
           db.close();
         })
-        res.sendStatus(200);
       })
     } else {
       res.sendStatus(404)
+      db.close();
     }
   })
 })
@@ -195,11 +203,12 @@ app.delete('/todo-finished', function (req, res) {
     if (!err) {
       var todos = db.collection('todos');
       todos.update({name: req.username}, {$set: {finished: []}}, function (err, result) {
+        res.sendStatus(200);
         db.close();
       })
-      res.sendStatus(200);
     } else {
-      res.sendStatus(404)
+      res.sendStatus(404);
+      db.close();
     }
   })
 })
