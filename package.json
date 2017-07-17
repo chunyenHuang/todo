@@ -24,10 +24,10 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
+    "chai": "^4.1.0",
     "gulp": "^3.9.1",
-    "gulp-mocha": "^2.2.0",
+    "gulp-mocha": "^4.3.1",
     "gulp-nodemon": "^2.0.6",
-    "mocha": "^2.4.5"
+    "mocha": "^3.4.2"
   }
 }
